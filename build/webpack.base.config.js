@@ -10,17 +10,23 @@ module.exports = {
   },
   module: {
     rules: [
+      // js 文件处理
       {
         test: /\.js|jsx$/i,
         use: [
           {
+            // cacheDirectory 缓存
             loader: 'babel-loader?cacheDirectory=true'
           }
         ],
+        // 排除node_modules目录
         exclude: /node_modules/
       },
+      // css文件处理
       {
         test: /\.(le|c)ss$/,
+        // loader 从右向左解析
+        // less-loader 处理less 文件， postcss-loader 处理兼容问题
         use: ['style-loader', 'css-loader', {
           loader: 'postcss-loader',
           options: {
@@ -36,6 +42,20 @@ module.exports = {
             }
           }
         }, 'less-loader'],
+        exclude: /node_modules/
+      },
+      // 图片字体文件等处理
+      {
+        test: /\.(png|jpg|gif|jpeg|webp|svg|eot|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10240, //10K
+              esModule: false
+            }
+          }
+        ],
         exclude: /node_modules/
       }
     ]
