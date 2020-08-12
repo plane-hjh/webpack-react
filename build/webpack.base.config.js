@@ -58,7 +58,7 @@ module.exports = {
         ],
         exclude: /node_modules/
       },
-      // 处理html中的文件
+      // 处理html中图片文件
       {
         test: /.html$/,
         use: 'html-withimg-loader'
