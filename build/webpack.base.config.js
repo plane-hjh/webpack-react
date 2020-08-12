@@ -57,6 +57,11 @@ module.exports = {
           }
         ],
         exclude: /node_modules/
+      },
+      // 处理html中的文件
+      {
+        test: /.html$/,
+        use: 'html-withimg-loader'
       }
     ]
   },
