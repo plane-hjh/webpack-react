@@ -11,12 +11,31 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/i,
+        test: /\.js|jsx$/i,
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader?cacheDirectory=true'
           }
         ],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(le|c)ss$/,
+        use: ['style-loader', 'css-loader', {
+          loader: 'postcss-loader',
+          options: {
+            plugins: function () {
+              return [
+                require('autoprefixer')({
+                  "overrideBrowserslist": [
+                    ">0.25%",
+                    "not dead"
+                  ]
+                })
+              ]
+            }
+          }
+        }, 'less-loader'],
         exclude: /node_modules/
       }
     ]
